@@ -107,6 +107,11 @@ namespace ConcentrationOrchestration
             double sum = 1.0 * low_betaWD.NormalizedValue() + 1.0 * high_betaWD.NormalizedValue() + 0.5 * alphaWD.NormalizedValue() - 1.5 * thetaWD.NormalizedValue() - 1.0 * gammaWD.NormalizedValue();
             return sum / 5.0;
         }
+
+        public static double SImpleLinearVal(WaveData low_betaWD, WaveData high_betaWD)
+        {
+            return (low_betaWD.NormalizedValue() + high_betaWD.NormalizedValue()) / 2.0;
+        }
     
         public static double checkVelocity(double newVelocity, double maxVelocity)
         {
@@ -153,6 +158,14 @@ namespace ConcentrationOrchestration
         {
             this.values.Add(val);
             this.curVal = val;
+            if (val > this.maxVal)
+            {
+                this.maxVal = val;
+            }
+            if (val < this.minVal)
+            {
+                this.minVal = val;
+            }
         }
     }
 
