@@ -32,11 +32,10 @@
             this.CurrentMentalState = new System.Windows.Forms.Label();
             this.BallImage = new System.Windows.Forms.PictureBox();
             this.BallTrackImage = new System.Windows.Forms.PictureBox();
-            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.transparentControl1 = new ConcentrationOrchestration.TransparentControl();
             ((System.ComponentModel.ISupportInitialize)(this.BallImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BallTrackImage)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
             this.SuspendLayout();
             // 
@@ -74,18 +73,6 @@
             this.BallTrackImage.TabIndex = 7;
             this.BallTrackImage.TabStop = false;
             // 
-            // pictureBox1
-            // 
-            this.pictureBox1.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pictureBox1.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox1.Image")));
-            this.pictureBox1.InitialImage = null;
-            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
-            this.pictureBox1.Name = "pictureBox1";
-            this.pictureBox1.Size = new System.Drawing.Size(156, 110);
-            this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
-            this.pictureBox1.TabIndex = 8;
-            this.pictureBox1.TabStop = false;
-            // 
             // pictureBox2
             // 
             this.pictureBox2.Image = ((System.Drawing.Image)(resources.GetObject("pictureBox2.Image")));
@@ -96,12 +83,22 @@
             this.pictureBox2.TabIndex = 9;
             this.pictureBox2.TabStop = false;
             // 
+            // transparentControl1
+            // 
+            this.transparentControl1.BackColor = System.Drawing.Color.Transparent;
+            this.transparentControl1.Image = ((System.Drawing.Image)(resources.GetObject("transparentControl1.Image")));
+            this.transparentControl1.Location = new System.Drawing.Point(12, 15);
+            this.transparentControl1.Name = "transparentControl1";
+            this.transparentControl1.Size = new System.Drawing.Size(282, 220);
+            this.transparentControl1.TabIndex = 10;
+            this.transparentControl1.Text = "transparentControl1";
+            // 
             // GameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(812, 459);
-            this.Controls.Add(this.pictureBox1);
+            this.Controls.Add(this.transparentControl1);
             this.Controls.Add(this.BallImage);
             this.Controls.Add(this.CurrentMentalState);
             this.Controls.Add(this.BallTrackImage);
@@ -110,7 +107,6 @@
             this.Text = "Form1";
             ((System.ComponentModel.ISupportInitialize)(this.BallImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BallTrackImage)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -119,10 +115,10 @@
 
         #endregion
         public System.Windows.Forms.Label CurrentMentalState;
-        private System.Windows.Forms.PictureBox pictureBox1;
         private System.Windows.Forms.PictureBox BallImage;
         public System.Windows.Forms.PictureBox BallTrackImage;
         private System.Windows.Forms.PictureBox pictureBox2;
+        private TransparentControl transparentControl1;
     }
 }
 

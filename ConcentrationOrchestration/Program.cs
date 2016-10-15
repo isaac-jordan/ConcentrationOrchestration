@@ -46,7 +46,6 @@ namespace ConcentrationOrchestration
 
         static void Application_Idle(object sender, EventArgs e)
         {
-            Random r = new Random();
 
             while (true)
             {
@@ -107,7 +106,7 @@ namespace ConcentrationOrchestration
                 }
 
                 Application.DoEvents();
-            }  
+            }
         }
 
         public static double BallAcceleration(WaveData alphaWD, WaveData low_betaWD, WaveData high_betaWD, WaveData thetaWD, WaveData gammaWD)
