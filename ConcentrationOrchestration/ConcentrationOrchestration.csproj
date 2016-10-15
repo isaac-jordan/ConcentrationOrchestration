@@ -107,6 +107,7 @@
     <Content Include="DotNetEmotivSDK.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="resources\brain gym.png" />
     <Content Include="resources\track.png" />
     <Resource Include="resources\ball.png" />
     <Resource Include="resources\brain_waves_logo.png" />

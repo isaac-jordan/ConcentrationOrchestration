@@ -47,64 +47,67 @@ namespace ConcentrationOrchestration
         static void Application_Idle(object sender, EventArgs e)
         {
             Random r = new Random();
-            
 
-            if (engine.EngineGetNumUser() > 0)
+            while (true)
             {
-                engine.IEE_FFTSetWindowingType(0, EdkDll.IEE_WindowingTypes.IEE_HAMMING);
-            }
+                if (engine.EngineGetNumUser() > 0)
+                {
+                    engine.IEE_FFTSetWindowingType(0, EdkDll.IEE_WindowingTypes.IEE_HAMMING);
+                }
 
-            engine.ProcessEvents(10);
+                engine.ProcessEvents(10);
 
-            WaveData alphaWD = new WaveData("alpha");
-            WaveData low_betaWD = new WaveData("low_beta");
-            WaveData high_betaWD = new WaveData("high_beta");
-            WaveData gammaWD = new WaveData("gamma");
-            WaveData thetaWD = new WaveData("theta");
+                WaveData alphaWD = new WaveData("alpha");
+                WaveData low_betaWD = new WaveData("low_beta");
+                WaveData high_betaWD = new WaveData("high_beta");
+                WaveData gammaWD = new WaveData("gamma");
+                WaveData thetaWD = new WaveData("theta");
 
-            double[] alpha = new double[1];
-            double[] low_beta = new double[1];
-            double[] high_beta = new double[1];
-            double[] gamma = new double[1];
-            double[] theta = new double[1];
+                double[] alpha = new double[1];
+                double[] low_beta = new double[1];
+                double[] high_beta = new double[1];
+                double[] gamma = new double[1];
+                double[] theta = new double[1];
 
-            EdkDll.IEE_DataChannel_t[] channelList = new EdkDll.IEE_DataChannel_t[5] { EdkDll.IEE_DataChannel_t.IED_AF3, EdkDll.IEE_DataChannel_t.IED_AF4, EdkDll.IEE_DataChannel_t.IED_T7,
+                EdkDll.IEE_DataChannel_t[] channelList = new EdkDll.IEE_DataChannel_t[5] { EdkDll.IEE_DataChannel_t.IED_AF3, EdkDll.IEE_DataChannel_t.IED_AF4, EdkDll.IEE_DataChannel_t.IED_T7,
                                                                                        EdkDll.IEE_DataChannel_t.IED_T8, EdkDll.IEE_DataChannel_t.IED_O1 };
 
-            double avgGamma = 0;
-            for (int i = 0; i < 5; i++)
-            {
-                engine.IEE_GetAverageBandPowers(0, channelList[i], theta, alpha, low_beta, high_beta, gamma);
-                Console.Write(theta[0] + ",");
-                Console.Write(alpha[0] + ",");
-                Console.Write(low_beta[0] + ",");
-                Console.Write(high_beta[0] + ",");
-                Console.WriteLine(gamma[0] + ",");
+                double avgGamma = 0;
+                for (int i = 0; i < 5; i++)
+                {
+                    engine.IEE_GetAverageBandPowers(0, channelList[i], theta, alpha, low_beta, high_beta, gamma);
+                    Console.Write(theta[0] + ",");
+                    Console.Write(alpha[0] + ",");
+                    Console.Write(low_beta[0] + ",");
+                    Console.Write(high_beta[0] + ",");
+                    Console.WriteLine(gamma[0] + ",");
 
-                Console.WriteLine("");
+                    Console.WriteLine("");
 
-                alphaWD.AddVal(alpha[0]);
-                low_betaWD.AddVal(low_beta[0]);
-                high_betaWD.AddVal(high_beta[0]);
-                gammaWD.AddVal(gamma[0]);
-                thetaWD.AddVal(theta[0]);
+                    alphaWD.AddVal(alpha[0]);
+                    low_betaWD.AddVal(low_beta[0]);
+                    high_betaWD.AddVal(high_beta[0]);
+                    gammaWD.AddVal(gamma[0]);
+                    thetaWD.AddVal(theta[0]);
 
-            }
+                }
 
-            avgGamma = avgGamma / 5;
-            //CurrentMentalState.Text = "Gamma: " + avgGamma;
+                avgGamma = avgGamma / 5;
+                //CurrentMentalState.Text = "Gamma: " + avgGamma;
 
-            //double ballPosition += ballVelocity * timeUnit;
-            //double ballVelocity += checkVelocity(velocity + BallAcceleration() * timeUnit);
+                //double ballPosition += ballVelocity * timeUnit;
+                //double ballVelocity += checkVelocity(velocity + BallAcceleration() * timeUnit);
 
-            //double acceleration = BallAcceleration(alphaWD, low_betaWD, high_betaWD, thetaWD, gammaWD);
-            double value = SimpleLinearVal(low_betaWD, high_betaWD);
-            if (!Double.IsNaN(value))
-            {
-                Console.WriteLine("Awesome value:" + value);
-                displayInputHandler.ApplyNewScaledValue(value);
-            }
-            
+                //double acceleration = BallAcceleration(alphaWD, low_betaWD, high_betaWD, thetaWD, gammaWD);
+                double value = SimpleLinearVal(low_betaWD, high_betaWD);
+                if (!Double.IsNaN(value))
+                {
+                    Console.WriteLine("Awesome value:" + value);
+                    displayInputHandler.ApplyNewScaledValue(value);
+                }
+
+                Application.DoEvents();
+            }  
         }
 
         public static double BallAcceleration(WaveData alphaWD, WaveData low_betaWD, WaveData high_betaWD, WaveData thetaWD, WaveData gammaWD)
@@ -174,4 +177,4 @@ namespace ConcentrationOrchestration
         }
     }
 
-    }
+}
