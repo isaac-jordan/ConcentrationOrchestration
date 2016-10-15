@@ -27,8 +27,8 @@ namespace ConcentrationOrchestration
 
         public double ScaleValueForUI(double value, double min, double max)
         {
-            Console.WriteLine("Min: " + min + " value: " + min + " max: " + max);
-            return min + value * max;
+            Console.WriteLine("Min: " + min + " value: " + value + " max: " + max);
+            return min + value * (max - min);
         }
     }
 }

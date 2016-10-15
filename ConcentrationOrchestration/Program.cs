@@ -83,11 +83,11 @@ namespace ConcentrationOrchestration
 
                 Console.WriteLine("");
 
-                alphaWD.addVal(alpha[0]);
-                low_betaWD.addVal(low_beta[0]);
-                high_betaWD.addVal(high_beta[0]);
-                gammaWD.addVal(gamma[0]);
-                thetaWD.addVal(theta[0]);
+                alphaWD.AddVal(alpha[0]);
+                low_betaWD.AddVal(low_beta[0]);
+                high_betaWD.AddVal(high_beta[0]);
+                gammaWD.AddVal(gamma[0]);
+                thetaWD.AddVal(theta[0]);
 
             }
 
@@ -98,8 +98,13 @@ namespace ConcentrationOrchestration
             //double ballVelocity += checkVelocity(velocity + BallAcceleration() * timeUnit);
 
             //double acceleration = BallAcceleration(alphaWD, low_betaWD, high_betaWD, thetaWD, gammaWD);
-            double value = (low_betaWD.NormalizedValue() + high_betaWD.NormalizedValue()) / 2;
-            displayInputHandler.ApplyNewScaledValue(value);
+            double value = SimpleLinearVal(low_betaWD, high_betaWD);
+            if (!Double.IsNaN(value))
+            {
+                Console.WriteLine("Awesome value:" + value);
+                displayInputHandler.ApplyNewScaledValue(value);
+            }
+            
         }
 
         public static double BallAcceleration(WaveData alphaWD, WaveData low_betaWD, WaveData high_betaWD, WaveData thetaWD, WaveData gammaWD)
@@ -108,12 +113,12 @@ namespace ConcentrationOrchestration
             return sum / 5.0;
         }
 
-        public static double SImpleLinearVal(WaveData low_betaWD, WaveData high_betaWD)
+        public static double SimpleLinearVal(WaveData low_betaWD, WaveData high_betaWD)
         {
             return (low_betaWD.NormalizedValue() + high_betaWD.NormalizedValue()) / 2.0;
         }
     
-        public static double checkVelocity(double newVelocity, double maxVelocity)
+        public static double CheckVelocity(double newVelocity, double maxVelocity)
         {
             if (newVelocity > maxVelocity)
             {
@@ -154,7 +159,7 @@ namespace ConcentrationOrchestration
             return (this.curVal - this.minVal) / (this.maxVal - this.minVal);
         }
 
-        public void addVal(double val)
+        public void AddVal(double val)
         {
             this.values.Add(val);
             this.curVal = val;
