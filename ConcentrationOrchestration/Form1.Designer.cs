@@ -28,85 +28,75 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.button1 = new System.Windows.Forms.Button();
-            this.StartTrainNeutralButton = new System.Windows.Forms.Button();
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             this.CurrentMentalState = new System.Windows.Forms.Label();
-            this.StartTrainFrownButton = new System.Windows.Forms.Button();
-            this.StartTrainSmileButton = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.pictureBox2 = new System.Windows.Forms.PictureBox();
+            this.pictureBox3 = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).BeginInit();
             this.SuspendLayout();
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(139, 84);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(108, 23);
-            this.button1.TabIndex = 0;
-            this.button1.Text = "Use Trained Data";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            // 
-            // StartTrainNeutralButton
-            // 
-            this.StartTrainNeutralButton.Location = new System.Drawing.Point(554, 84);
-            this.StartTrainNeutralButton.Name = "StartTrainNeutralButton";
-            this.StartTrainNeutralButton.Size = new System.Drawing.Size(148, 23);
-            this.StartTrainNeutralButton.TabIndex = 1;
-            this.StartTrainNeutralButton.Text = "Start Training Neutral";
-            this.StartTrainNeutralButton.UseVisualStyleBackColor = true;
-            this.StartTrainNeutralButton.Click += new System.EventHandler(this.button2_Click);
             // 
             // CurrentMentalState
             // 
             this.CurrentMentalState.AutoSize = true;
-            this.CurrentMentalState.Location = new System.Drawing.Point(363, 106);
+            this.CurrentMentalState.Location = new System.Drawing.Point(647, 506);
             this.CurrentMentalState.Name = "CurrentMentalState";
             this.CurrentMentalState.Size = new System.Drawing.Size(35, 13);
             this.CurrentMentalState.TabIndex = 2;
             this.CurrentMentalState.Text = "label1";
             // 
-            // StartTrainFrownButton
+            // pictureBox1
             // 
-            this.StartTrainFrownButton.Location = new System.Drawing.Point(554, 113);
-            this.StartTrainFrownButton.Name = "StartTrainFrownButton";
-            this.StartTrainFrownButton.Size = new System.Drawing.Size(148, 23);
-            this.StartTrainFrownButton.TabIndex = 3;
-            this.StartTrainFrownButton.Text = "Start Training Frown";
-            this.StartTrainFrownButton.UseVisualStyleBackColor = true;
-            this.StartTrainFrownButton.Click += new System.EventHandler(this.StartTrainFrownButton_Click);
+            this.pictureBox1.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox1.InitialImage")));
+            this.pictureBox1.Location = new System.Drawing.Point(12, 12);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(121, 95);
+            this.pictureBox1.TabIndex = 5;
+            this.pictureBox1.TabStop = false;
             // 
-            // StartTrainSmileButton
+            // pictureBox2
             // 
-            this.StartTrainSmileButton.Location = new System.Drawing.Point(554, 142);
-            this.StartTrainSmileButton.Name = "StartTrainSmileButton";
-            this.StartTrainSmileButton.Size = new System.Drawing.Size(148, 23);
-            this.StartTrainSmileButton.TabIndex = 4;
-            this.StartTrainSmileButton.Text = "Start Training Smile";
-            this.StartTrainSmileButton.UseVisualStyleBackColor = true;
+            this.pictureBox2.InitialImage = ((System.Drawing.Image)(resources.GetObject("pictureBox2.InitialImage")));
+            this.pictureBox2.Location = new System.Drawing.Point(373, 485);
+            this.pictureBox2.Name = "pictureBox2";
+            this.pictureBox2.Size = new System.Drawing.Size(74, 74);
+            this.pictureBox2.TabIndex = 6;
+            this.pictureBox2.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            this.pictureBox3.Location = new System.Drawing.Point(317, 8);
+            this.pictureBox3.Name = "pictureBox3";
+            this.pictureBox3.Size = new System.Drawing.Size(184, 564);
+            this.pictureBox3.TabIndex = 7;
+            this.pictureBox3.TabStop = false;
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(816, 583);
-            this.Controls.Add(this.StartTrainSmileButton);
-            this.Controls.Add(this.StartTrainFrownButton);
+            this.Controls.Add(this.pictureBox2);
+            this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.CurrentMentalState);
-            this.Controls.Add(this.StartTrainNeutralButton);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.pictureBox3);
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox3)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.Button button1;
-        private System.Windows.Forms.Button StartTrainNeutralButton;
         public System.Windows.Forms.Label CurrentMentalState;
-        private System.Windows.Forms.Button StartTrainFrownButton;
-        private System.Windows.Forms.Button StartTrainSmileButton;
+        private System.Windows.Forms.PictureBox pictureBox1;
+        private System.Windows.Forms.PictureBox pictureBox2;
+        private System.Windows.Forms.PictureBox pictureBox3;
     }
 }
 

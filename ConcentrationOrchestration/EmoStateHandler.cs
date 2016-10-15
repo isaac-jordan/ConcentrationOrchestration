@@ -267,8 +267,8 @@ class EmoStateHandler
         engine.FacialExpressionTrainingRejected +=
             new EmoEngine.FacialExpressionTrainingRejectedEventHandler(engine_FacialExpressionTrainingRejected);
 
-        //engine.Connect();
-        engine.RemoteConnect("127.0.0.1", 1726);
+        engine.Connect();
+        //engine.RemoteConnect("127.0.0.1", 1726);
      
 
         return engine;
