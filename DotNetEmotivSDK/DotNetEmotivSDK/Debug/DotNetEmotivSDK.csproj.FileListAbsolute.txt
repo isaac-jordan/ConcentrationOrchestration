@@ -1,0 +1,5 @@
+C:\Users\Isaac Jordan\Workspace\ConcentrationOrchestration\build\Debug\DotNetEmotivSDK.dll
+C:\Users\Isaac Jordan\Workspace\ConcentrationOrchestration\build\Debug\DotNetEmotivSDK.pdb
+C:\Users\Isaac Jordan\Workspace\ConcentrationOrchestration\DotNetEmotivSDK\DotNetEmotivSDK\Debug\DotNetEmotivSDK.csprojResolveAssemblyReference.cache
+C:\Users\Isaac Jordan\Workspace\ConcentrationOrchestration\DotNetEmotivSDK\DotNetEmotivSDK\Debug\DotNetEmotivSDK.dll
+C:\Users\Isaac Jordan\Workspace\ConcentrationOrchestration\DotNetEmotivSDK\DotNetEmotivSDK\Debug\DotNetEmotivSDK.pdb

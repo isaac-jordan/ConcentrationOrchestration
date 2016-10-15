@@ -1,6 +1,7 @@
 ﻿using Emotiv;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -46,6 +47,12 @@ namespace ConcentrationOrchestration
 
         static void Application_Idle(object sender, EventArgs e)
         {
+            Stopwatch stopWatch = new Stopwatch();
+            double currentAcceleration = 0;
+            double currentVelocity = 0;
+            double currentPosition = 0;
+
+            double maxVelocity = 10;
 
             while (true)
             {
@@ -71,7 +78,6 @@ namespace ConcentrationOrchestration
                 EdkDll.IEE_DataChannel_t[] channelList = new EdkDll.IEE_DataChannel_t[5] { EdkDll.IEE_DataChannel_t.IED_AF3, EdkDll.IEE_DataChannel_t.IED_AF4, EdkDll.IEE_DataChannel_t.IED_T7,
                                                                                        EdkDll.IEE_DataChannel_t.IED_T8, EdkDll.IEE_DataChannel_t.IED_O1 };
 
-                double avgGamma = 0;
                 for (int i = 0; i < 5; i++)
                 {
                     engine.IEE_GetAverageBandPowers(0, channelList[i], theta, alpha, low_beta, high_beta, gamma);
@@ -90,19 +96,27 @@ namespace ConcentrationOrchestration
                     thetaWD.AddVal(theta[0]);
 
                 }
-
-                avgGamma = avgGamma / 5;
-                //CurrentMentalState.Text = "Gamma: " + avgGamma;
-
-                //double ballPosition += ballVelocity * timeUnit;
-                //double ballVelocity += checkVelocity(velocity + BallAcceleration() * timeUnit);
-
-                //double acceleration = BallAcceleration(alphaWD, low_betaWD, high_betaWD, thetaWD, gammaWD);
-                double value = SimpleLinearVal(low_betaWD, high_betaWD);
-                if (!Double.IsNaN(value))
+                if (!stopWatch.IsRunning)
                 {
-                    Console.WriteLine("Awesome value:" + value);
-                    displayInputHandler.ApplyNewScaledValue(value);
+                    stopWatch.Start();
+                } else
+                {
+                    stopWatch.Stop();
+                    long timeDeltaMs = stopWatch.ElapsedMilliseconds;
+
+
+                    currentAcceleration += BallAcceleration(alphaWD, low_betaWD, high_betaWD, thetaWD, gammaWD);
+                    currentVelocity += CheckVelocity(currentVelocity + currentAcceleration * timeDeltaMs, maxVelocity);
+                    currentPosition += currentVelocity * timeDeltaMs; // ballPosition
+
+                    //double currentPosition = SimpleLinearVal(low_betaWD, high_betaWD);
+
+                    if (!Double.IsNaN(currentPosition))
+                    {
+                        Console.WriteLine("New position (formerly Awesome value):" + currentPosition);
+                        displayInputHandler.ApplyNewScaledValue(currentPosition);
+                    }
+                    stopWatch.Start();
                 }
 
                 Application.DoEvents();
