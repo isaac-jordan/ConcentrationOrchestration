@@ -52,6 +52,12 @@ namespace ConcentrationOrchestration
 
             engine.ProcessEvents(100);
 
+            WaveData alphaWD = new WaveData("alpha");
+            WaveData low_betaWD = new WaveData("low_beta");
+            WaveData high_betaWD = new WaveData("high_beta");
+            WaveData gammaWD = new WaveData("gamma");
+            WaveData thetaWD = new WaveData("theta");
+
             double[] alpha = new double[1];
             double[] low_beta = new double[1];
             double[] high_beta = new double[1];
@@ -73,11 +79,72 @@ namespace ConcentrationOrchestration
 
                 Console.WriteLine("");
 
-                avgGamma += gamma[0];
+                alphaWD.addVal(alpha[0]);
+                low_betaWD.addVal(low_beta[0]);
+                high_betaWD.addVal(high_beta[0]);
+                gammaWD.addVal(gamma[0]);
+                thetaWD.addVal(theta[0]);
+
             }
 
             avgGamma = avgGamma / 5;
             window.CurrentMentalState.Text = "Gamma: " + avgGamma;
         }
+
+
+
+        public static double BallAcceleration(WaveData low_betaWD, WaveData high_betaWD, WaveData alphaWD, WaveData thetaWD, WaveData gammaWD)
+        {
+            double sum = 1.0 * low_betaWD.curVal + 1.0 * high_betaWD.curVal + 0.5 * alphaWD.curVal - 1.5 * thetaWD.curVal - 1.0 * gammaWD.curVal;
+            return sum / 5.0;
+        }
+    
+        public static double checkVelocity(double newVelocity, double maxVelocity)
+        {
+            if (newVelocity > maxVelocity)
+            {
+                return maxVelocity;
+            } else
+            {
+                return newVelocity;
+            }
+            }
+        }
+
+        
+    
+    public class WaveData
+    {
+        // Fields
+        public string name { get; }
+
+        public List<double> values;
+
+        public double curVal { get; set; }
+        public double minVal { get; set; }
+        public double maxVal { get; set; }
+
+        // Constructor
+        public WaveData(string name)
+        {
+            this.name = name;
+            this.values = new List<double>();
+            this.curVal = 0;
+            this.minVal = 0;
+            this.maxVal = 0;
+        }
+       
+        // Other Methods
+        public double NormalizedValue()
+        {
+            return (this.curVal - this.minVal) / (this.maxVal - this.minVal);
+        }
+
+        public void addVal(double val)
+        {
+            this.values.Add(val);
+            this.curVal = val;
+        }
     }
-}
+
+    }
