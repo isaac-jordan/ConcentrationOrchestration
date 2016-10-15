@@ -81,13 +81,13 @@ namespace ConcentrationOrchestration
                 for (int i = 0; i < 5; i++)
                 {
                     engine.IEE_GetAverageBandPowers(0, channelList[i], theta, alpha, low_beta, high_beta, gamma);
-                    Console.Write(theta[0] + ",");
-                    Console.Write(alpha[0] + ",");
-                    Console.Write(low_beta[0] + ",");
-                    Console.Write(high_beta[0] + ",");
-                    Console.WriteLine(gamma[0] + ",");
+                    //Console.Write(theta[0] + ",");
+                    //Console.Write(alpha[0] + ",");
+                    //Console.Write(low_beta[0] + ",");
+                    //Console.Write(high_beta[0] + ",");
+                    //Console.WriteLine(gamma[0] + ",");
 
-                    Console.WriteLine("");
+                    //Console.WriteLine("");
 
                     alphaWD.AddVal(alpha[0]);
                     low_betaWD.AddVal(low_beta[0]);
@@ -99,6 +99,7 @@ namespace ConcentrationOrchestration
                 if (!stopWatch.IsRunning)
                 {
                     stopWatch.Start();
+                    Console.WriteLine("Starting stopwatch.");
                 } else
                 {
                     stopWatch.Stop();
@@ -110,6 +111,7 @@ namespace ConcentrationOrchestration
                     currentPosition += currentVelocity * timeDeltaMs; // ballPosition
 
                     //double currentPosition = SimpleLinearVal(low_betaWD, high_betaWD);
+                    Console.WriteLine(currentPosition);
 
                     if (!Double.IsNaN(currentPosition))
                     {
@@ -172,7 +174,9 @@ namespace ConcentrationOrchestration
         // Other Methods
         public double NormalizedValue()
         {
-            return (this.curVal - this.minVal) / (this.maxVal - this.minVal);
+            double denom = (this.maxVal - this.minVal);
+            if (denom == 0) return 0;
+            return (this.curVal - this.minVal) / denom;
         }
 
         public void AddVal(double val)
