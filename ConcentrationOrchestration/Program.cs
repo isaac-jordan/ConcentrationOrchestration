@@ -12,7 +12,7 @@ namespace ConcentrationOrchestration
         private static readonly int fps = 60;
         private static readonly int sleepMilliSeconds = (int)Math.Round(1.0 / fps * 1000);
         private static EmoEngine engine = null;
-        public static Form1 window;
+        public static DisplayInputHandler displayInputHandler;
         private static int userID = -1;
 
         static void engine_UserAdded_Event(object sender, EmoEngineEventArgs e)
@@ -36,7 +36,8 @@ namespace ConcentrationOrchestration
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            window = new Form1();
+            GameWindow window = new GameWindow();
+            displayInputHandler = new DisplayInputHandler(window);
 
             Application.Idle += new EventHandler(Application_Idle);
 
@@ -45,12 +46,15 @@ namespace ConcentrationOrchestration
 
         static void Application_Idle(object sender, EventArgs e)
         {
+            Random r = new Random();
+            displayInputHandler.ApplyNewScaledValue(r.NextDouble());
+
             if (engine.EngineGetNumUser() > 0)
             {
                 engine.IEE_FFTSetWindowingType(0, EdkDll.IEE_WindowingTypes.IEE_HAMMING);
             }
 
-            engine.ProcessEvents(100);
+            engine.ProcessEvents(10);
 
             double[] alpha = new double[1];
             double[] low_beta = new double[1];
@@ -77,7 +81,7 @@ namespace ConcentrationOrchestration
             }
 
             avgGamma = avgGamma / 5;
-            window.CurrentMentalState.Text = "Gamma: " + avgGamma;
+            //CurrentMentalState.Text = "Gamma: " + avgGamma;
         }
     }
 }

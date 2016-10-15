@@ -11,11 +11,18 @@ using System.Windows.Forms;
 
 namespace ConcentrationOrchestration
 {
-    public partial class Form1 : Form
+    public partial class GameWindow : Form
     {
-        public Form1()
+        public GameWindow()
         {
             InitializeComponent();
+
+            SetStyle(ControlStyles.ResizeRedraw, true);
+        }
+
+        public void setBallYValue(int newYValue)
+        {
+            BallImage.Location = new Point(BallImage.Location.X, newYValue);
         }
 
         private void button2_Click(object sender, EventArgs e)
