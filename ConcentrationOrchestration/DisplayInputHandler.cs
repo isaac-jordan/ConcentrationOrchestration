@@ -21,11 +21,13 @@ namespace ConcentrationOrchestration
             int trackBottomYLocation = trackTopYLocation + gameWindow.BallTrackImage.Size.Height;
 
             double uiValue = ScaleValueForUI(value, trackTopYLocation, trackBottomYLocation);
-            gameWindow.setBallYValue((int)Math.Round(uiValue));
+            Console.WriteLine("UI Value: " + uiValue);
+            gameWindow.setBallYValue(Convert.ToInt32(uiValue));
         }
 
         public double ScaleValueForUI(double value, double min, double max)
         {
+            Console.WriteLine("Min: " + min + " value: " + min + " max: " + max);
             return min + value * max;
         }
     }

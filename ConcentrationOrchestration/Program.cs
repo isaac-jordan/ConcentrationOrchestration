@@ -47,7 +47,7 @@ namespace ConcentrationOrchestration
         static void Application_Idle(object sender, EventArgs e)
         {
             Random r = new Random();
-            displayInputHandler.ApplyNewScaledValue(r.NextDouble());
+            
 
             if (engine.EngineGetNumUser() > 0)
             {
@@ -93,13 +93,18 @@ namespace ConcentrationOrchestration
 
             avgGamma = avgGamma / 5;
             //CurrentMentalState.Text = "Gamma: " + avgGamma;
+
+            //double ballPosition += ballVelocity * timeUnit;
+            //double ballVelocity += checkVelocity(velocity + BallAcceleration() * timeUnit);
+
+            //double acceleration = BallAcceleration(alphaWD, low_betaWD, high_betaWD, thetaWD, gammaWD);
+            double value = (low_betaWD.NormalizedValue() + high_betaWD.NormalizedValue()) / 2;
+            displayInputHandler.ApplyNewScaledValue(value);
         }
 
-
-
-        public static double BallAcceleration(WaveData low_betaWD, WaveData high_betaWD, WaveData alphaWD, WaveData thetaWD, WaveData gammaWD)
+        public static double BallAcceleration(WaveData alphaWD, WaveData low_betaWD, WaveData high_betaWD, WaveData thetaWD, WaveData gammaWD)
         {
-            double sum = 1.0 * low_betaWD.curVal + 1.0 * high_betaWD.curVal + 0.5 * alphaWD.curVal - 1.5 * thetaWD.curVal - 1.0 * gammaWD.curVal;
+            double sum = 1.0 * low_betaWD.NormalizedValue() + 1.0 * high_betaWD.NormalizedValue() + 0.5 * alphaWD.NormalizedValue() - 1.5 * thetaWD.NormalizedValue() - 1.0 * gammaWD.NormalizedValue();
             return sum / 5.0;
         }
     
@@ -112,8 +117,8 @@ namespace ConcentrationOrchestration
             {
                 return newVelocity;
             }
-            }
         }
+    }
 
         
     
