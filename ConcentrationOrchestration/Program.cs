@@ -119,6 +119,10 @@ namespace ConcentrationOrchestration
                     if (newPosition > 1)
                     {
                         Console.WriteLine("GAME OVER, YOU WIN!");
+                        WMPLib.WindowsMediaPlayer wplayer = new WMPLib.WindowsMediaPlayer();
+
+                        wplayer.URL = "bell.mp3";
+                        wplayer.controls.play();
                         // END PROGRAM
                     } else if (newPosition < 0)
                     {
