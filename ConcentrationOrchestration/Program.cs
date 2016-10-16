@@ -110,19 +110,27 @@ namespace ConcentrationOrchestration
                     Console.WriteLine("Acceleration change: " + accChange);
 
                     currentAcceleration = BindToMaxValue(currentAcceleration + accChange, maxAcceleration);
-                    double newPosition = currentPosition + 0.5 * currentAcceleration;
+                    //double newPosition = currentPosition + 0.5 * currentAcceleration * timeDeltaTicks * timeDeltaTicks;
+                    double newPosition = currentPosition + 0.5 * currentAcceleration; // Time is unitary
 
                     Console.WriteLine("CurrAcc: {0}, TimeDelta: {1}, NewPos: {2}",
                         currentAcceleration, timeDeltaTicks, newPosition);
                     if (newPosition > 1)
                     {
-                        ThreadPool.QueueUserWorkItem(
+                        try
+                        {
+                            ThreadPool.QueueUserWorkItem(
                                      delegate (object param)
                                      {
                                          WMPLib.WindowsMediaPlayer player = new WMPLib.WindowsMediaPlayer();
                                          player.URL = "resources\\bell.mp3";
                                          player.controls.play();
                                      });
+                        } catch (Exception)
+                        {
+                            // Nada
+                        }
+                        
                         Console.WriteLine("VICTORY!");
                         // END PROGRAM
                     } else if (newPosition < 0)
@@ -156,18 +164,28 @@ namespace ConcentrationOrchestration
         // Method: tinker with
         public static double AccelerationChange(WaveData alphaWD, WaveData low_betaWD, WaveData high_betaWD, WaveData thetaWD, WaveData gammaWD)
         {
-            double scalingFactor = 0.1;
-            double gravity = 0;
             Console.WriteLine("Waves: A: {0}, LB: {1}, HB: {2}, T: {3}, G: {4}", alphaWD.DecibelValue(), low_betaWD.DecibelValue(), high_betaWD.DecibelValue(), thetaWD.DecibelValue(), gammaWD.DecibelValue());
-            //double sum = 1.0 * low_betaWD.NormalizedValue() + 1.0 * high_betaWD.NormalizedValue() + 0.5 * alphaWD.NormalizedValue() - 1.5 * thetaWD.NormalizedValue() - 0.5 * gammaWD.NormalizedValue();
-            //double sum = 1.0 * low_betaWD.DecibelValue() + 1.0 * high_betaWD.DecibelValue() + 0 * alphaWD.DecibelValue() - 0 * thetaWD.DecibelValue() - 0 * gammaWD.DecibelValue();
-            double sum = 2.0 * low_betaWD.DecibelValue() + 2.0 * high_betaWD.DecibelValue() + 0.5 * alphaWD.DecibelValue() + 0.5 * thetaWD.DecibelValue() + 0.5 * gammaWD.DecibelValue();
+            double sum = 0;
+            double scalingFactor = 1;
+            double gravity = 0;
 
-            // Different scaling attempts, intended to be more consistent across the magnitude space
             double[] waveValues = new double[] { low_betaWD.DecibelValue(), high_betaWD.DecibelValue(), alphaWD.DecibelValue(), thetaWD.DecibelValue(), gammaWD.DecibelValue() };
+
+            //// SUMS
+
+            //double weightedSum = 1.0 * low_betaWD.NormalizedValue() + 1.0 * high_betaWD.NormalizedValue() + 0.5 * alphaWD.NormalizedValue() - 1.5 * thetaWD.NormalizedValue() - 0.5 * gammaWD.NormalizedValue();
+            double mixedWeightedSum = 1.0 * low_betaWD.DecibelValue() + 1.0 * high_betaWD.DecibelValue() + 0.5 * alphaWD.DecibelValue() - 1.5 * thetaWD.DecibelValue() - 0.5 * gammaWD.DecibelValue();
+            double positiveWeightedSum = 1.0 * low_betaWD.DecibelValue() + 1.0 * high_betaWD.DecibelValue() + 0.5 * alphaWD.DecibelValue() + 0.5 * thetaWD.DecibelValue() + 0.5 * gammaWD.DecibelValue();
+            double simpleSum = waveValues.Sum();
             
+            
+            //// Scaling-used values
+
             double span = waveValues.Max() - waveValues.Min();
             double average = waveValues.Average();
+
+
+            //// Different scaling showcases, intended to be more consistent across the magnitude space
 
             // Span-inversely-proportional scaling
             //scalingFactor = 1 / span;
@@ -176,7 +194,17 @@ namespace ConcentrationOrchestration
             //scalingFactor = 1 / average;
 
             // Magnitude-complement-proportional scaling
+            //scalingFactor = 1 - average;
+
+            //// Packaged scalings
+
+            // Best Relaxation Tailoring
+            sum = simpleSum;
             scalingFactor = 1 - average;
+            gravity = -0.1;
+            
+
+
 
             return sum * scalingFactor - gravity; // Alternatively, gravity could be subtracted from sum directly
         }
