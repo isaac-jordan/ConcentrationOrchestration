@@ -34,6 +34,7 @@
             this.BallTrackImage = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.transparentControl1 = new ConcentrationOrchestration.TransparentControl();
+            this.transparentControl2 = new ConcentrationOrchestration.TransparentControl();
             ((System.ComponentModel.ISupportInitialize)(this.BallImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BallTrackImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
@@ -55,9 +56,9 @@
             this.BallImage.BackColor = System.Drawing.Color.Transparent;
             this.BallImage.Image = ((System.Drawing.Image)(resources.GetObject("BallImage.Image")));
             this.BallImage.InitialImage = null;
-            this.BallImage.Location = new System.Drawing.Point(437, 333);
+            this.BallImage.Location = new System.Drawing.Point(437, 305);
             this.BallImage.Name = "BallImage";
-            this.BallImage.Size = new System.Drawing.Size(68, 74);
+            this.BallImage.Size = new System.Drawing.Size(68, 10);
             this.BallImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
             this.BallImage.TabIndex = 6;
             this.BallImage.TabStop = false;
@@ -66,10 +67,10 @@
             // 
             this.BallTrackImage.Anchor = System.Windows.Forms.AnchorStyles.None;
             this.BallTrackImage.Image = ((System.Drawing.Image)(resources.GetObject("BallTrackImage.Image")));
-            this.BallTrackImage.Location = new System.Drawing.Point(437, 15);
+            this.BallTrackImage.Location = new System.Drawing.Point(437, 72);
             this.BallTrackImage.Name = "BallTrackImage";
-            this.BallTrackImage.Size = new System.Drawing.Size(68, 432);
-            this.BallTrackImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
+            this.BallTrackImage.Size = new System.Drawing.Size(68, 375);
+            this.BallTrackImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.BallTrackImage.TabIndex = 7;
             this.BallTrackImage.TabStop = false;
             // 
@@ -93,11 +94,22 @@
             this.transparentControl1.TabIndex = 10;
             this.transparentControl1.Text = "transparentControl1";
             // 
+            // transparentControl2
+            // 
+            this.transparentControl2.BackColor = System.Drawing.Color.Transparent;
+            this.transparentControl2.Image = ((System.Drawing.Image)(resources.GetObject("transparentControl2.Image")));
+            this.transparentControl2.Location = new System.Drawing.Point(375, -2);
+            this.transparentControl2.Name = "transparentControl2";
+            this.transparentControl2.Size = new System.Drawing.Size(190, 94);
+            this.transparentControl2.TabIndex = 11;
+            this.transparentControl2.Text = "transparentControl2";
+            // 
             // GameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(812, 459);
+            this.Controls.Add(this.transparentControl2);
             this.Controls.Add(this.transparentControl1);
             this.Controls.Add(this.BallImage);
             this.Controls.Add(this.CurrentMentalState);
@@ -119,6 +131,7 @@
         public System.Windows.Forms.PictureBox BallTrackImage;
         private System.Windows.Forms.PictureBox pictureBox2;
         private TransparentControl transparentControl1;
+        private TransparentControl transparentControl2;
     }
 }
 

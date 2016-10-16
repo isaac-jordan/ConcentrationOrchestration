@@ -110,6 +110,8 @@
     <Content Include="DotNetEmotivSDK.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Content Include="resources\bar.png" />
+    <Content Include="resources\bell.png" />
     <Content Include="resources\brain gym.png" />
     <Content Include="resources\track.png" />
     <Resource Include="resources\ball.png" />
