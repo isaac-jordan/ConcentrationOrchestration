@@ -49,11 +49,9 @@ namespace ConcentrationOrchestration
         {
             Stopwatch stopWatch = new Stopwatch();
             double currentAcceleration = 0;
-            double currentVelocity = 0;
             double currentPosition = 0;
 
             double maxAcceleration = 1;
-            double maxVelocity = 1;
 
             while (true)
             {
@@ -111,19 +109,17 @@ namespace ConcentrationOrchestration
                     Console.WriteLine("Acceleration change: " + accChange);
 
                     currentAcceleration = BindToMaxValue(currentAcceleration + accChange, maxAcceleration);
-                    currentVelocity = BindToMaxValue(currentVelocity + currentAcceleration * timeDeltaTicks, maxVelocity);
-                    double newPosition = currentPosition + currentVelocity * timeDeltaTicks;
+                    double newPosition = currentPosition + 0.5 * currentAcceleration * timeDeltaTicks * timeDeltaTicks;
 
-                    Console.WriteLine("CurrAcc: {0}, CurrVel: {1}, TimeDelta: {2}, NewPos: {3}",
-                        currentAcceleration, currentVelocity, timeDeltaTicks, newPosition);
+                    Console.WriteLine("CurrAcc: {0}, TimeDelta: {1}, NewPos: {2}",
+                        currentAcceleration, timeDeltaTicks, newPosition);
                     if (newPosition > 1)
                     {
-                        Console.WriteLine("GAME OVER, YOU WIN!");
+                        Console.WriteLine("VICTORY!");
                         // END PROGRAM
                     } else if (newPosition < 0)
                     {
                         currentPosition = 0;
-                        currentVelocity = 0;
                         currentAcceleration = 0;
                     }
 
@@ -143,6 +139,7 @@ namespace ConcentrationOrchestration
             }
         }
 
+        // Assuming brain waves are equally likely to be of any power, the return value of this function will statistically be between -1 and 1.
         public static double AccelerationChange(WaveData alphaWD, WaveData low_betaWD, WaveData high_betaWD, WaveData thetaWD, WaveData gammaWD)
         {
             double sum = 1.0 * low_betaWD.NormalizedValue() + 1.0 * high_betaWD.NormalizedValue() + 0.5 * alphaWD.NormalizedValue() - 1.5 * thetaWD.NormalizedValue() - 1.0 * gammaWD.NormalizedValue();
