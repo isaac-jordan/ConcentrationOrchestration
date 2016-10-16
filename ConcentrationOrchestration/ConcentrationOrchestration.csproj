@@ -111,9 +111,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="resources\bar.png" />
-    <Resource Include="resources\bell.mp3">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Resource>
+    <EmbeddedResource Include="resources\bell.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="resources\bell.png" />
     <Content Include="resources\brain gym.png" />
     <Content Include="resources\track.png" />
