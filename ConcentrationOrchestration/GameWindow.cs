@@ -22,8 +22,13 @@ namespace ConcentrationOrchestration
 
         public void setBallYValue(int newYValue)
         {
-            Console.WriteLine("New Y Coord: " + newYValue);
+            //Console.WriteLine("New Y Coord: " + newYValue);
             BallImage.Location = new Point(BallImage.Location.X, newYValue);
+        }
+
+        public void setPerformanceYValue(int newYValue)
+        {
+            PerformanceMeasure.Location = new Point(PerformanceMeasure.Location.X, newYValue);
         }
 
         private void button2_Click(object sender, EventArgs e)

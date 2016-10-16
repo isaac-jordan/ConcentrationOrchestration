@@ -54,6 +54,8 @@ namespace ConcentrationOrchestration
 
             double maxAcceleration = 1;
 
+            bool haveWon = false;
+
             while (true)
             {
                 if (engine.EngineGetNumUser() > 0)
@@ -107,7 +109,7 @@ namespace ConcentrationOrchestration
 
 
                     double accChange = AccelerationChange(alphaWD, low_betaWD, high_betaWD, thetaWD, gammaWD);
-                    Console.WriteLine("Acceleration change: " + accChange);
+                    //Console.WriteLine("Acceleration change: " + accChange);
 
                     currentAcceleration = BindToMaxValue(currentAcceleration + accChange, maxAcceleration);
                     //double newPosition = currentPosition + 0.5 * currentAcceleration * timeDeltaTicks * timeDeltaTicks;
@@ -115,23 +117,14 @@ namespace ConcentrationOrchestration
 
                     Console.WriteLine("CurrAcc: {0}, TimeDelta: {1}, NewPos: {2}",
                         currentAcceleration, timeDeltaTicks, newPosition);
+
+                    displayInputHandler.ApplyNewScaledValueForMeasure(Math.Log(Math.Abs(newPosition), 100));
+
                     if (newPosition > 1)
                     {
-                        try
-                        {
-                            ThreadPool.QueueUserWorkItem(
-                                     delegate (object param)
-                                     {
-                                         WMPLib.WindowsMediaPlayer player = new WMPLib.WindowsMediaPlayer();
-                                         player.URL = "resources\\bell.mp3";
-                                         player.controls.play();
-                                     });
-                        } catch (Exception)
-                        {
-                            // Nada
-                        }
+                        haveWon = true;
                         
-                        Console.WriteLine("VICTORY!");
+
                         // END PROGRAM
                     } else if (newPosition < 0)
                     {
@@ -147,15 +140,40 @@ namespace ConcentrationOrchestration
 
                     if (!Double.IsNaN(currentPosition))
                     {
-                        Console.WriteLine("New position (formerly Awesome value):" + currentPosition);
-                        displayInputHandler.ApplyNewScaledValue(currentPosition);
+                        //Console.WriteLine("New position (formerly Awesome value):" + currentPosition);
+                        displayInputHandler.ApplyNewScaledValueForBall(currentPosition);
                     }
                     stopWatch.Reset();
                     stopWatch.Start();
                 }
 
                 Application.DoEvents();
-                System.Threading.Thread.Sleep(500);
+
+                if (haveWon)
+                {
+                    ThreadPool.QueueUserWorkItem(
+                                delegate (object param)
+                                {
+                                    WMPLib.WindowsMediaPlayer player = new WMPLib.WindowsMediaPlayer();
+                                    try
+                                    {
+                                        player.URL = "resources\\bell.mp3";
+                                    }
+                                    catch (Exception)
+                                    {
+                                        // Nada
+                                    }
+
+                                    player.controls.play();
+                                });
+
+                    Console.WriteLine("VICTORY!");
+                    Thread.Sleep(3000);
+                    exitGame();
+                }
+                Thread.Sleep(30);
+
+
                 
             }
         }
@@ -201,9 +219,7 @@ namespace ConcentrationOrchestration
             // Best Relaxation Tailoring
             sum = simpleSum;
             scalingFactor = 1 - average;
-            gravity = -0.1;
-            
-
+            gravity = 1.2;
 
 
             return sum * scalingFactor - gravity; // Alternatively, gravity could be subtracted from sum directly
@@ -222,6 +238,21 @@ namespace ConcentrationOrchestration
             } else
             {
                 return newValue;
+            }
+        }
+
+        private static void exitGame()
+        {
+            if (Application.MessageLoop)
+            {
+                // WinForms app
+                Application.Exit();
+                Environment.Exit(1);
+            }
+            else
+            {
+                // Console app
+                Environment.Exit(1);
             }
         }
     }

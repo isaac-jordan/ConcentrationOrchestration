@@ -29,26 +29,19 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(GameWindow));
-            this.CurrentMentalState = new System.Windows.Forms.Label();
             this.BallImage = new System.Windows.Forms.PictureBox();
             this.BallTrackImage = new System.Windows.Forms.PictureBox();
             this.pictureBox2 = new System.Windows.Forms.PictureBox();
             this.transparentControl1 = new ConcentrationOrchestration.TransparentControl();
             this.transparentControl2 = new ConcentrationOrchestration.TransparentControl();
+            this.PerformanceIndicatorTrack = new System.Windows.Forms.PictureBox();
+            this.PerformanceMeasure = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.BallImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.BallTrackImage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PerformanceIndicatorTrack)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PerformanceMeasure)).BeginInit();
             this.SuspendLayout();
-            // 
-            // CurrentMentalState
-            // 
-            this.CurrentMentalState.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.CurrentMentalState.AutoSize = true;
-            this.CurrentMentalState.Location = new System.Drawing.Point(645, 444);
-            this.CurrentMentalState.Name = "CurrentMentalState";
-            this.CurrentMentalState.Size = new System.Drawing.Size(35, 13);
-            this.CurrentMentalState.TabIndex = 2;
-            this.CurrentMentalState.Text = "label1";
             // 
             // BallImage
             // 
@@ -56,7 +49,7 @@
             this.BallImage.BackColor = System.Drawing.Color.Transparent;
             this.BallImage.Image = ((System.Drawing.Image)(resources.GetObject("BallImage.Image")));
             this.BallImage.InitialImage = null;
-            this.BallImage.Location = new System.Drawing.Point(437, 305);
+            this.BallImage.Location = new System.Drawing.Point(437, 437);
             this.BallImage.Name = "BallImage";
             this.BallImage.Size = new System.Drawing.Size(68, 10);
             this.BallImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.Zoom;
@@ -104,15 +97,40 @@
             this.transparentControl2.TabIndex = 11;
             this.transparentControl2.Text = "transparentControl2";
             // 
+            // PerformanceIndicatorTrack
+            // 
+            this.PerformanceIndicatorTrack.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.PerformanceIndicatorTrack.Image = ((System.Drawing.Image)(resources.GetObject("PerformanceIndicatorTrack.Image")));
+            this.PerformanceIndicatorTrack.Location = new System.Drawing.Point(746, 28);
+            this.PerformanceIndicatorTrack.Name = "PerformanceIndicatorTrack";
+            this.PerformanceIndicatorTrack.Size = new System.Drawing.Size(40, 137);
+            this.PerformanceIndicatorTrack.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PerformanceIndicatorTrack.TabIndex = 12;
+            this.PerformanceIndicatorTrack.TabStop = false;
+            // 
+            // PerformanceMeasure
+            // 
+            this.PerformanceMeasure.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.PerformanceMeasure.BackColor = System.Drawing.Color.Transparent;
+            this.PerformanceMeasure.Image = ((System.Drawing.Image)(resources.GetObject("PerformanceMeasure.Image")));
+            this.PerformanceMeasure.InitialImage = null;
+            this.PerformanceMeasure.Location = new System.Drawing.Point(744, 155);
+            this.PerformanceMeasure.Name = "PerformanceMeasure";
+            this.PerformanceMeasure.Size = new System.Drawing.Size(42, 10);
+            this.PerformanceMeasure.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.PerformanceMeasure.TabIndex = 13;
+            this.PerformanceMeasure.TabStop = false;
+            // 
             // GameWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(812, 459);
+            this.Controls.Add(this.PerformanceMeasure);
+            this.Controls.Add(this.PerformanceIndicatorTrack);
             this.Controls.Add(this.transparentControl2);
             this.Controls.Add(this.transparentControl1);
             this.Controls.Add(this.BallImage);
-            this.Controls.Add(this.CurrentMentalState);
             this.Controls.Add(this.BallTrackImage);
             this.Controls.Add(this.pictureBox2);
             this.Name = "GameWindow";
@@ -120,18 +138,20 @@
             ((System.ComponentModel.ISupportInitialize)(this.BallImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.BallTrackImage)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.pictureBox2)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PerformanceIndicatorTrack)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.PerformanceMeasure)).EndInit();
             this.ResumeLayout(false);
-            this.PerformLayout();
 
         }
 
         #endregion
-        public System.Windows.Forms.Label CurrentMentalState;
         private System.Windows.Forms.PictureBox BallImage;
         public System.Windows.Forms.PictureBox BallTrackImage;
         private System.Windows.Forms.PictureBox pictureBox2;
         private TransparentControl transparentControl1;
         private TransparentControl transparentControl2;
+        public System.Windows.Forms.PictureBox PerformanceIndicatorTrack;
+        private System.Windows.Forms.PictureBox PerformanceMeasure;
     }
 }
 

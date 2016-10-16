@@ -15,21 +15,44 @@ namespace ConcentrationOrchestration
             gameWindow = window;
         }
 
-        public void ApplyNewScaledValue(double value)
+        public void ApplyNewScaledValueForBall(double value)
         {
-            Console.WriteLine("UI Input value: " + value);
+            //Console.WriteLine("UI Input value: " + value);
             value = 1 - value;
             int trackTopYLocation = gameWindow.BallTrackImage.Location.Y;
             int trackBottomYLocation = trackTopYLocation + gameWindow.BallTrackImage.Size.Height;
 
             double uiValue = ScaleValueForUI(value, trackTopYLocation, trackBottomYLocation);
-            Console.WriteLine("UI Value: " + uiValue);
+            //Console.WriteLine("UI Value: " + uiValue);
             gameWindow.setBallYValue(Convert.ToInt32(uiValue));
+        }
+
+        public void ApplyNewScaledValueForMeasure(double value)
+        {
+            Console.WriteLine("UI Input value: " + value);
+            if (value < 0)
+            {
+                value = 0;
+            }
+
+            if (value > 1)
+            {
+                value = 1;
+            }
+
+            //value = 1 - value;
+
+            int trackTopYLocation = gameWindow.PerformanceIndicatorTrack.Location.Y;
+            int trackBottomYLocation = trackTopYLocation + gameWindow.PerformanceIndicatorTrack.Size.Height;
+
+            double uiValue = ScaleValueForUI(value, trackTopYLocation, trackBottomYLocation);
+            Console.WriteLine("UI Value: " + uiValue);
+            gameWindow.setPerformanceYValue(Convert.ToInt32(uiValue));
         }
 
         public double ScaleValueForUI(double value, double min, double max)
         {
-            Console.WriteLine("Min: " + min + " value: " + value + " max: " + max);
+            //Console.WriteLine("Min: " + min + " value: " + value + " max: " + max);
             return min + value * (max - min);
         }
     }
