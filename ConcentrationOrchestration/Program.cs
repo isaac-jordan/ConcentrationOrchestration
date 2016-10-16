@@ -52,7 +52,8 @@ namespace ConcentrationOrchestration
             double currentVelocity = 0;
             double currentPosition = 0;
 
-            double maxVelocity = 10;
+            double maxAcceleration = 1;
+            double maxVelocity = 1;
 
             while (true)
             {
@@ -103,12 +104,28 @@ namespace ConcentrationOrchestration
                 } else
                 {
                     stopWatch.Stop();
-                    long timeDeltaMs = stopWatch.ElapsedMilliseconds;
+                    long timeDeltaTicks = stopWatch.ElapsedTicks;
 
 
-                    currentAcceleration += BallAcceleration(alphaWD, low_betaWD, high_betaWD, thetaWD, gammaWD);
-                    currentVelocity += CheckVelocity(currentVelocity + currentAcceleration * timeDeltaMs, maxVelocity);
-                    currentPosition += currentVelocity * timeDeltaMs; // ballPosition
+                    double accChange = AccelerationChange(alphaWD, low_betaWD, high_betaWD, thetaWD, gammaWD);
+                    Console.WriteLine("Acceleration change: " + accChange);
+
+                    currentAcceleration = BindToMaxValue(currentAcceleration + accChange, maxAcceleration);
+                    currentVelocity = BindToMaxValue(currentVelocity + currentAcceleration * timeDeltaTicks, maxVelocity);
+                    double newPosition = currentPosition + currentVelocity * timeDeltaTicks;
+
+                    Console.WriteLine("CurrAcc: {0}, CurrVel: {1}, TimeDelta: {2}, NewPos: {3}",
+                        currentAcceleration, currentVelocity, timeDeltaTicks, newPosition);
+                    if (newPosition > 1)
+                    {
+                        Console.WriteLine("GAME OVER, YOU WIN!");
+                        // END PROGRAM
+                    } else if (newPosition < 0)
+                    {
+                        currentPosition = 0;
+                        currentVelocity = 0;
+                        currentAcceleration = 0;
+                    }
 
                     //double currentPosition = SimpleLinearVal(low_betaWD, high_betaWD);
                     Console.WriteLine(currentPosition);
@@ -118,6 +135,7 @@ namespace ConcentrationOrchestration
                         Console.WriteLine("New position (formerly Awesome value):" + currentPosition);
                         displayInputHandler.ApplyNewScaledValue(currentPosition);
                     }
+                    stopWatch.Reset();
                     stopWatch.Start();
                 }
 
@@ -125,7 +143,7 @@ namespace ConcentrationOrchestration
             }
         }
 
-        public static double BallAcceleration(WaveData alphaWD, WaveData low_betaWD, WaveData high_betaWD, WaveData thetaWD, WaveData gammaWD)
+        public static double AccelerationChange(WaveData alphaWD, WaveData low_betaWD, WaveData high_betaWD, WaveData thetaWD, WaveData gammaWD)
         {
             double sum = 1.0 * low_betaWD.NormalizedValue() + 1.0 * high_betaWD.NormalizedValue() + 0.5 * alphaWD.NormalizedValue() - 1.5 * thetaWD.NormalizedValue() - 1.0 * gammaWD.NormalizedValue();
             return sum / 5.0;
@@ -136,14 +154,14 @@ namespace ConcentrationOrchestration
             return (low_betaWD.NormalizedValue() + high_betaWD.NormalizedValue()) / 2.0;
         }
     
-        public static double CheckVelocity(double newVelocity, double maxVelocity)
+        public static double BindToMaxValue(double newValue, double maxValue)
         {
-            if (newVelocity > maxVelocity)
+            if (newValue > maxValue)
             {
-                return maxVelocity;
+                return maxValue;
             } else
             {
-                return newVelocity;
+                return newValue;
             }
         }
     }
