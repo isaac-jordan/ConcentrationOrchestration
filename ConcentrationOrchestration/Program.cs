@@ -154,6 +154,12 @@ namespace ConcentrationOrchestration
             double gravity = 0;
             //double sum = 1.0 * low_betaWD.NormalizedValue() + 1.0 * high_betaWD.NormalizedValue() + 0.5 * alphaWD.NormalizedValue() - 1.5 * thetaWD.NormalizedValue() - 0.5 * gammaWD.NormalizedValue();
             double sum = 1.0 * low_betaWD.DecibelValue() + 1.0 * high_betaWD.DecibelValue() + 0.5 * alphaWD.DecibelValue() - 1.5 * thetaWD.DecibelValue() - 0.5 * gammaWD.DecibelValue();
+
+            // Different scaling attempt, intended to be more consistent across the magnitude space
+            double[] waveValues = new double[] { low_betaWD.DecibelValue(), high_betaWD.DecibelValue(), alphaWD.DecibelValue(), thetaWD.DecibelValue(), gammaWD.DecibelValue() };
+            double span = waveValues.Max() - waveValues.Min();
+            scalingFactor = 1 / span;
+
             return sum * scalingFactor - gravity; // Alternatively, gravity could be subtracted from sum directly
         }
 
