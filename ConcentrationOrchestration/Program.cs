@@ -146,11 +146,15 @@ namespace ConcentrationOrchestration
             }
         }
 
-        // Assuming brain waves are equally likely to be of any power, the return value of this function will statistically be between -1 and 1.
+        // Assumption: brain waves are equally likely to be of any power. Goal: keep return value of this function statistically between -1 and 1.
+        // Method: tinker with
         public static double AccelerationChange(WaveData alphaWD, WaveData low_betaWD, WaveData high_betaWD, WaveData thetaWD, WaveData gammaWD)
         {
-            double sum = 2.0 * low_betaWD.NormalizedValue() + 2.0 * high_betaWD.NormalizedValue() + 0.1 * alphaWD.NormalizedValue() - 0.1 * thetaWD.NormalizedValue() - 0.8 * gammaWD.NormalizedValue();
-            return sum / 5;
+            double scalingFactor = 1;
+            double gravity = 0;
+            //double sum = 1.0 * low_betaWD.NormalizedValue() + 1.0 * high_betaWD.NormalizedValue() + 0.5 * alphaWD.NormalizedValue() - 1.5 * thetaWD.NormalizedValue() - 0.5 * gammaWD.NormalizedValue();
+            double sum = 1.0 * low_betaWD.DecibelValue() + 1.0 * high_betaWD.DecibelValue() + 0.5 * alphaWD.DecibelValue() - 1.5 * thetaWD.DecibelValue() - 0.5 * gammaWD.DecibelValue();
+            return sum * scalingFactor - gravity; // Alternatively, gravity could be subtracted from sum directly
         }
 
         public static double SimpleLinearVal(WaveData low_betaWD, WaveData high_betaWD)
@@ -199,6 +203,13 @@ namespace ConcentrationOrchestration
             double denom = (this.maxVal - this.minVal);
             if (denom == 0) return 0;
             return (this.curVal - this.minVal) / denom;
+        }
+
+        // Expected values are between -10dB and 20dB
+        public double DecibelValue()
+        {
+            double referencePower = 1;
+            return 10 * Math.Log10( this.curVal / referencePower);
         }
 
         public void AddVal(double val)
