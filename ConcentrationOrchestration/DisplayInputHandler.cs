@@ -17,6 +17,8 @@ namespace ConcentrationOrchestration
 
         public void ApplyNewScaledValue(double value)
         {
+            Console.WriteLine("UI Input value: " + value);
+            value = 1 - value;
             int trackTopYLocation = gameWindow.BallTrackImage.Location.Y;
             int trackBottomYLocation = trackTopYLocation + gameWindow.BallTrackImage.Size.Height;
 
